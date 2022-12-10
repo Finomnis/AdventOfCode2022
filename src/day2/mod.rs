@@ -24,7 +24,7 @@ pub enum Outcome {
 }
 
 #[aoc_generator(day2, part1)]
-pub fn input_generator(input: &str) -> Result<Vec<(Hand, Hand)>> {
+pub fn input_generator(input: &str) -> Vec<(Hand, Hand)> {
     input
         .lines()
         .map(separated_pair(
@@ -45,7 +45,7 @@ pub fn input_generator(input: &str) -> Result<Vec<(Hand, Hand)>> {
 }
 
 #[aoc_generator(day2, part2)]
-pub fn input_generator_2(input: &str) -> Result<Vec<(Hand, Outcome)>> {
+pub fn input_generator_2(input: &str) -> Vec<(Hand, Outcome)> {
     input
         .lines()
         .map(separated_pair(
@@ -144,21 +144,21 @@ mod tests {
 
     #[test]
     fn part1_example() {
-        assert_eq!(solve_part1(&input_generator(EXAMPLE).unwrap()), 15);
+        assert_eq!(solve_part1(&input_generator(EXAMPLE)), 15);
     }
 
     #[test]
     fn part1() {
-        assert_eq!(solve_part1(&input_generator(INPUT).unwrap()), 14163);
+        assert_eq!(solve_part1(&input_generator(INPUT)), 14163);
     }
 
     #[test]
     fn part2_example() {
-        assert_eq!(solve_part2(&input_generator_2(EXAMPLE).unwrap()), 12);
+        assert_eq!(solve_part2(&input_generator_2(EXAMPLE)), 12);
     }
 
     #[test]
     fn part2() {
-        assert_eq!(solve_part2(&input_generator_2(INPUT).unwrap()), 12091);
+        assert_eq!(solve_part2(&input_generator_2(INPUT)), 12091);
     }
 }

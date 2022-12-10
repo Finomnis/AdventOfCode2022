@@ -28,10 +28,10 @@ impl Debug for NomParserError {
 
 pub fn extract_nom_value<I: Deref<Target = str> + Clone, T>(
     input: I,
-) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> Result<T> {
+) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> T {
     move |res| {
-        res.map(|(_, val)| val).map_err(|e| {
-            match e {
+        res.map(|(_, val)| val)
+            .map_err(|e| match e {
                 nom::Err::Incomplete(Needed::Unknown) => NomParserError {
                     msg: "Incomplete: further input expected.".to_string(),
                 },
@@ -44,8 +44,7 @@ pub fn extract_nom_value<I: Deref<Target = str> + Clone, T>(
                 nom::Err::Failure(e) => NomParserError {
                     msg: format!("Parsing failed!\n\n{}", convert_error(input.clone(), e)),
                 },
-            }
-            .into()
-        })
+            })
+            .unwrap()
     }
 }
