@@ -34,6 +34,7 @@ mod tests {
     use super::*;
 
     const EXAMPLE: &str = include_str!("example.txt");
+    const INPUT: &str = crate::utils::day_input!(day1);
 
     #[test]
     fn part1_example() {
@@ -41,7 +42,17 @@ mod tests {
     }
 
     #[test]
+    fn part1() {
+        assert_eq!(solve_part1(&input_generator(INPUT)), 74198);
+    }
+
+    #[test]
     fn part2_example() {
         assert_eq!(solve_part2(&input_generator(EXAMPLE)), 45000);
+    }
+
+    #[test]
+    fn part2() {
+        assert_eq!(solve_part2(&input_generator(INPUT)), 209914);
     }
 }
