@@ -66,7 +66,7 @@ pub use nom::{
     branch::alt,
     bytes::complete::tag,
     character::complete::{
-        anychar, char, line_ending, not_line_ending, space0, space1, u16, u32, u64,
+        anychar, char, line_ending, not_line_ending, one_of, space0, space1, u16, u32, u64,
     },
     combinator::map,
     multi::{count, many1, many1_count, separated_list1},
