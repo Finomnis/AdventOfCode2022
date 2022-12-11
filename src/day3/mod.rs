@@ -3,6 +3,7 @@ use aoc_runner_derive::aoc;
 #[aoc(day3, part1)]
 pub fn solve_part1(input: &str) -> u32 {
     input
+        .trim_end()
         .lines()
         .map(|line| line.split_at(line.len() / 2))
         .inspect(|(left, right)| assert!(left.len() == right.len()))
@@ -23,7 +24,7 @@ pub fn solve_part1(input: &str) -> u32 {
 
 #[aoc(day3, part2)]
 pub fn solve_part2(input: &str) -> u32 {
-    let lines = input.lines().collect::<Vec<_>>();
+    let lines = input.trim_end().lines().collect::<Vec<_>>();
 
     lines
         .chunks(3)

@@ -20,6 +20,8 @@ pub struct MoveCommand {
 
 #[aoc_generator(day5)]
 pub fn input_generator(input: &str) -> (Vec<Vec<char>>, Vec<MoveCommand>) {
+    let input = input.trim_end();
+
     let container = delimited(char('['), anychar, char(']'));
     let space = tag("   ");
     let maybe_container = alt((map(container, |c| Some(c)), map(space, |_| None)));

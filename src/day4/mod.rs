@@ -13,6 +13,7 @@ use crate::utils::nom::extract_nom_value;
 #[aoc_generator(day4)]
 pub fn input_generator(input: &str) -> Vec<(RangeInclusive<u32>, RangeInclusive<u32>)> {
     input
+        .trim_end()
         .lines()
         .map(separated_pair(
             map(separated_pair(u32, char('-'), u32), |(s, e)| s..=e),

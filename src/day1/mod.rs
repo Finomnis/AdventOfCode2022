@@ -3,6 +3,7 @@ use itertools::Itertools;
 
 #[aoc_generator(day1)]
 pub fn input_generator(input: &str) -> Vec<Vec<u32>> {
+    let input = input.trim_end();
     input
         .split("\n\n")
         .map(|elf| elf.lines().map(|v| v.parse().unwrap()).collect())

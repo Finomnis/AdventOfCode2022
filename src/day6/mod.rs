@@ -4,7 +4,7 @@ use aoc_runner_derive::aoc;
 
 #[aoc(day6, part1)]
 pub fn solve_part1(line: &str) -> usize {
-    line.trim()
+    line.trim_end()
         .as_bytes()
         .windows(4)
         .take_while(|window| {
@@ -16,7 +16,7 @@ pub fn solve_part1(line: &str) -> usize {
 
 #[aoc(day6, part2)]
 pub fn solve_part2(line: &str) -> usize {
-    line.trim()
+    line.trim_end()
         .as_bytes()
         .windows(14)
         .take_while(|window| {

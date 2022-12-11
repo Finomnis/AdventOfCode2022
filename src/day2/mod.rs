@@ -25,6 +25,7 @@ pub enum Outcome {
 
 #[aoc_generator(day2, part1)]
 pub fn input_generator(input: &str) -> Vec<(Hand, Hand)> {
+    let input = input.trim_end();
     input
         .lines()
         .map(separated_pair(
@@ -46,6 +47,7 @@ pub fn input_generator(input: &str) -> Vec<(Hand, Hand)> {
 
 #[aoc_generator(day2, part2)]
 pub fn input_generator_2(input: &str) -> Vec<(Hand, Outcome)> {
+    let input = input.trim_end();
     input
         .lines()
         .map(separated_pair(
