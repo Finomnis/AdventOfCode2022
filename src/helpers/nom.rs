@@ -27,7 +27,7 @@ impl Debug for NomParserError {
 
 pub type VResult<'a, T> = IResult<&'a str, T, VerboseError<&'a str>>;
 
-pub fn finalize<I, T>(input: I) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> T
+pub fn finalize<I, T>(input_data: I) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> T
 where
     I: Deref<Target = str> + Clone,
 {
@@ -48,10 +48,13 @@ where
                 msg: format!("Incomplete: {} more characters expected.", needed),
             },
             nom::Err::Error(e) => NomParserError {
-                msg: format!("Parser error!\n\n{}", convert_error(input.clone(), e)),
+                msg: format!("Parser error!\n\n{}", convert_error(input_data.clone(), e)),
             },
             nom::Err::Failure(e) => NomParserError {
-                msg: format!("Parsing failed!\n\n{}", convert_error(input.clone(), e)),
+                msg: format!(
+                    "Parsing failed!\n\n{}",
+                    convert_error(input_data.clone(), e)
+                ),
             },
         })
         .unwrap()
@@ -62,8 +65,10 @@ where
 pub use nom::{
     branch::alt,
     bytes::complete::tag,
-    character::complete::{anychar, char, line_ending, space0, space1, u16, u32},
+    character::complete::{
+        anychar, char, line_ending, not_line_ending, space0, space1, u16, u32, u64,
+    },
     combinator::map,
-    multi::{count, many1_count, separated_list1},
+    multi::{count, many1, many1_count, separated_list1},
     sequence::{delimited, pair, preceded, separated_pair, tuple},
 };
