@@ -5,7 +5,7 @@ use std::{
 
 use nom::{
     error::{convert_error, VerboseError},
-    Needed,
+    IResult, Needed,
 };
 use thiserror::Error;
 
@@ -25,9 +25,14 @@ impl Debug for NomParserError {
     }
 }
 
-pub fn extract_nom_value<I: Deref<Target = str> + Clone, T>(
+pub type VResult<'a, T> = IResult<&'a str, T, VerboseError<&'a str>>;
+
+pub fn extract_nom_value<I, T>(
     input: I,
-) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> T {
+) -> impl FnMut(Result<(I, T), nom::Err<VerboseError<I>>>) -> T
+where
+    I: Deref<Target = str> + Clone,
+{
     move |res| {
         res.map(|(leftover, val)| {
             assert!(
