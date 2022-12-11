@@ -1,21 +1,21 @@
 mod parser {
     pub use crate::helpers::nom::*;
 
-    fn single_digit(input: &str) -> VResult<u8> {
-        map(one_of("0123456789"), |ch| ch as u8 - '0' as u8)(input)
+    fn _single_digit(input: &str) -> VResult<u8> {
+        map(one_of("0123456789"), |ch| ch as u8 - b'0')(input)
     }
 }
 
 pub fn parse_input(input_data: &str) -> Vec<()> {
-    let input_data = input_data.trim_end();
+    let _input_data = input_data.trim_end();
     todo!()
 }
 
-pub fn task1(shell_commands: &[()]) -> u64 {
+pub fn task1(_forest: &[()]) -> u64 {
     0
 }
 
-pub fn task2(shell_commands: &[()]) -> u64 {
+pub fn task2(_forest: &[()]) -> u64 {
     0
 }
 

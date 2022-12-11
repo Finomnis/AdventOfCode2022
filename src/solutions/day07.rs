@@ -14,7 +14,7 @@ mod parser {
     fn ls_command(input: &str) -> VResult<ShellCommand> {
         map(
             preceded(tag("$ ls"), many1(preceded(line_ending, ls_entry))),
-            |val| ShellCommand::Ls(val),
+            ShellCommand::Ls,
         )(input)
     }
 
@@ -60,7 +60,7 @@ enum NodeContent {
 }
 
 fn parse_into_tree(shell_commands: &[ShellCommand]) -> DirectoryEntries {
-    let mut shell_commands = shell_commands.into_iter();
+    let mut shell_commands = shell_commands.iter();
 
     assert_eq!(
         shell_commands.next().unwrap(),
@@ -130,7 +130,7 @@ pub fn task1(shell_commands: &[ShellCommand]) -> u64 {
     fn get_size_and_score(_name: &str, dir: &DirectoryEntries) -> (u64, u64) {
         //println!(" -> {_name}");
         let (size, score) = dir
-            .into_iter()
+            .iter()
             .map(|(name, entry)| match entry.as_ref() {
                 NodeContent::File { size } => (*size, 0),
                 NodeContent::Directory { entries } => entries
@@ -141,13 +141,12 @@ pub fn task1(shell_commands: &[ShellCommand]) -> u64 {
             .reduce(|(size, score), (size2, score2)| (size + size2, score + score2))
             .unwrap_or((0, 0));
 
-        let result = if size <= MAX_SIZE {
+        if size <= MAX_SIZE {
             (size, score + size)
         } else {
             (size, score)
-        };
+        }
         //println!(" <- {:?}", result);
-        result
     }
 
     let (_size, score) = get_size_and_score("/", &root);
@@ -163,7 +162,7 @@ pub fn task2(shell_commands: &[ShellCommand]) -> u64 {
     fn get_sizes(_name: &str, dir: &DirectoryEntries) -> (u64, Vec<u64>) {
         //println!(" -> {_name}");
         let (size, mut sizes) = dir
-            .into_iter()
+            .iter()
             .map(|(name, entry)| match entry.as_ref() {
                 NodeContent::File { size } => (*size, vec![]),
                 NodeContent::Directory { entries } => {
@@ -179,9 +178,9 @@ pub fn task2(shell_commands: &[ShellCommand]) -> u64 {
             .unwrap_or((0, vec![]));
 
         sizes.push(size);
-        let result = (size, sizes);
-        //println!(" <- {:?}", result);
-        result
+
+        //println!(" <- {:?}", (size, sizes));
+        (size, sizes)
     }
 
     let (size, sizes) = get_sizes("/", &root);

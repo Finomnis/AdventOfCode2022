@@ -6,18 +6,14 @@ pub fn parse_input(input_data: &str) -> &[u8] {
 
 pub fn task1(line: &[u8]) -> usize {
     line.windows(4)
-        .take_while(|window| {
-            window.into_iter().cloned().collect::<HashSet<_>>().len() != window.len()
-        })
+        .take_while(|window| window.iter().cloned().collect::<HashSet<_>>().len() != window.len())
         .count()
         + 4
 }
 
 pub fn task2(line: &[u8]) -> usize {
     line.windows(14)
-        .take_while(|window| {
-            window.into_iter().cloned().collect::<HashSet<_>>().len() != window.len()
-        })
+        .take_while(|window| window.iter().cloned().collect::<HashSet<_>>().len() != window.len())
         .count()
         + 14
 }

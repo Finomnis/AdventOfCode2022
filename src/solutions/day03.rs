@@ -8,11 +8,7 @@ pub fn task1(input: &[&str]) -> u32 {
         .map(|line| line.split_at(line.len() / 2))
         .inspect(|(left, right)| assert!(left.len() == right.len()))
         .map(|(left, right)| {
-            let duplicate = left
-                .chars()
-                .filter(|&ch| right.contains(ch))
-                .next()
-                .unwrap();
+            let duplicate = left.chars().find(|&ch| right.contains(ch)).unwrap();
             match duplicate {
                 'a'..='z' => duplicate as u32 - 'a' as u32 + 1,
                 'A'..='Z' => duplicate as u32 - 'A' as u32 + 27,
@@ -29,8 +25,7 @@ pub fn task2(input: &[&str]) -> u32 {
         .map(|&[a, b, c]| {
             let duplicate = a
                 .chars()
-                .filter(|&ch| b.contains(ch) && c.contains(ch))
-                .next()
+                .find(|&ch| b.contains(ch) && c.contains(ch))
                 .unwrap();
             match duplicate {
                 'a'..='z' => duplicate as u32 - 'a' as u32 + 1,

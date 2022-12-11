@@ -12,7 +12,7 @@ mod parser {
     }
 
     fn maybe_container(input: &str) -> VResult<Option<char>> {
-        alt((map(container, |c| Some(c)), map(space, |_| None)))(input)
+        alt((map(container, Some), map(space, |_| None)))(input)
     }
 
     fn container_line(input: &str) -> VResult<Vec<Option<char>>> {
@@ -34,9 +34,9 @@ mod parser {
         )(input)
     }
 
-    pub fn raw_instructions(
-        input: &str,
-    ) -> VResult<(Vec<Vec<Option<char>>>, usize, Vec<MoveCommand>)> {
+    type RawContainers = Vec<Vec<Option<char>>>;
+
+    pub fn raw_instructions(input: &str) -> VResult<(RawContainers, usize, Vec<MoveCommand>)> {
         tuple((
             separated_list1(line_ending, container_line),
             delimited(

@@ -65,7 +65,7 @@ pub fn parse_input(input_data: &str) -> Vec<(Hand, char)> {
 
 pub fn task1(input: &[(Hand, char)]) -> u32 {
     input
-        .into_iter()
+        .iter()
         .map(|&(opponents, ours_ch)| {
             let ours = match ours_ch {
                 'X' => Hand::Rock,
@@ -92,7 +92,7 @@ pub fn task1(input: &[(Hand, char)]) -> u32 {
 
 pub fn task2(input: &[(Hand, char)]) -> u32 {
     input
-        .into_iter()
+        .iter()
         .map(|&(opponents, outcome_ch)| {
             let outcome = match outcome_ch {
                 'X' => Outcome::Loose,
