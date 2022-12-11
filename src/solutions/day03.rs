@@ -1,10 +1,10 @@
-use aoc_runner_derive::aoc;
+pub fn parse_input(input_data: &str) -> Vec<&str> {
+    input_data.trim_end().lines().collect()
+}
 
-#[aoc(day3, part1)]
-pub fn solve_part1(input: &str) -> u32 {
+pub fn task1(input: &[&str]) -> u32 {
     input
-        .trim_end()
-        .lines()
+        .iter()
         .map(|line| line.split_at(line.len() / 2))
         .inspect(|(left, right)| assert!(left.len() == right.len()))
         .map(|(left, right)| {
@@ -22,11 +22,8 @@ pub fn solve_part1(input: &str) -> u32 {
         .sum()
 }
 
-#[aoc(day3, part2)]
-pub fn solve_part2(input: &str) -> u32 {
-    let lines = input.trim_end().lines().collect::<Vec<_>>();
-
-    lines
+pub fn task2(input: &[&str]) -> u32 {
+    input
         .chunks(3)
         .map(|slice| <&[_; 3]>::try_from(slice).unwrap())
         .map(|&[a, b, c]| {
@@ -44,29 +41,13 @@ pub fn solve_part2(input: &str) -> u32 {
         .sum()
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    const EXAMPLE: &str = include_str!("example.txt");
-    const INPUT: &str = crate::utils::day_input!(day3);
-
-    #[test]
-    fn part1_example() {
-        assert_eq!(solve_part1(EXAMPLE), 157);
-    }
-
-    #[test]
-    fn part1() {
-        assert_eq!(solve_part1(INPUT), 8053);
-    }
-
-    #[test]
-    fn part2_example() {
-        assert_eq!(solve_part2(EXAMPLE), 70);
-    }
-    #[test]
-    fn part2() {
-        assert_eq!(solve_part2(INPUT), 2425);
+crate::aoc_tests! {
+    task1: {
+        simple => 157,
+        complex => 8053,
+    },
+    task2: {
+        simple => 70,
+        complex => 2425,
     }
 }

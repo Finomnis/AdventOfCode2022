@@ -65,7 +65,7 @@ pub fn parse_input(input_data: &str) -> Vec<(Hand, char)> {
         .trim_end()
         .lines()
         .map(parser::game_rule)
-        .map(parser::extract_nom_value(input_data))
+        .map(parser::finalize(input_data))
         .collect()
 }
 
