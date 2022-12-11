@@ -39,6 +39,12 @@ impl FramesCounter {
     }
 }
 
+impl Default for FramesCounter {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 pub struct Renderers {
     _inconstructible: (),
 }
