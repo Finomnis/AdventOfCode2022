@@ -27,6 +27,8 @@ pub enum ShellCommand {
 
 #[aoc_generator(day7)]
 pub fn input_generator(input: &str) -> Vec<ShellCommand> {
+    let input = input.trim_end();
+
     let cd_command = map(preceded(tag("$ cd "), not_line_ending), |val: &str| {
         ShellCommand::Cd(val.to_string())
     });
@@ -45,7 +47,7 @@ pub fn input_generator(input: &str) -> Vec<ShellCommand> {
     );
     let shell_command = alt((cd_command, ls_command));
 
-    extract_nom_value(input)(separated_list1(line_ending, shell_command)(input.trim()))
+    extract_nom_value(input)(separated_list1(line_ending, shell_command)(input))
 }
 
 type DirectoryEntries = HashMap<String, Box<NodeContent>>;
