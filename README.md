@@ -34,7 +34,7 @@ cargo test --release
 Recommended development environment:
 
 - VSCode
-- Plugin `rust-analyzer` (NOT the official `Rust` plugin)
+- Plugin `rust-analyzer`
 
 This enables syntax highlighting, auto-completion, in-line type hints,
 error highlighting and buttons to run specific tests only (directly at the tests).
