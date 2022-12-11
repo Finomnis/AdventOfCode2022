@@ -3,7 +3,6 @@ use std::{
     ops::Deref,
 };
 
-use anyhow::Result;
 use nom::{
     error::{convert_error, VerboseError},
     Needed,
