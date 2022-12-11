@@ -62,8 +62,8 @@ where
 pub use nom::{
     branch::alt,
     bytes::complete::tag,
-    character::complete::{anychar, char, line_ending, space0, space1, u16},
+    character::complete::{anychar, char, line_ending, space0, space1, u16, u32},
     combinator::map,
     multi::{count, many1_count, separated_list1},
-    sequence::{delimited, pair, preceded, tuple},
+    sequence::{delimited, pair, preceded, separated_pair, tuple},
 };

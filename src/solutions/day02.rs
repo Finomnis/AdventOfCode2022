@@ -2,12 +2,6 @@ mod parser {
     pub use crate::helpers::nom::*;
 
     use super::Hand;
-    use nom::{
-        branch::alt,
-        character::complete::{anychar, char, space1},
-        combinator::map,
-        sequence::separated_pair,
-    };
 
     pub fn game_rule(input: &str) -> VResult<(Hand, char)> {
         separated_pair(

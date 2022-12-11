@@ -5,12 +5,6 @@ mod parser {
 
     pub use crate::helpers::nom::*;
 
-    use nom::{
-        character::complete::{char, u32},
-        combinator::map,
-        sequence::separated_pair,
-    };
-
     pub fn line(input: &str) -> VResult<(RangeInclusive<u32>, RangeInclusive<u32>)> {
         separated_pair(
             map(separated_pair(u32, char('-'), u32), |(s, e)| s..=e),
